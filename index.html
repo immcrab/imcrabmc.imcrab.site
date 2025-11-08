@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>imcrabMC</title>
+    <!-- tailwind css cdn. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* custom keyframes for fade-in and smoother transitions. */
+        @keyframes fadeInFromTop {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInFromBottom {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* apply the animation to the content sections. */
+        .fade-in-top { animation: fadeInFromTop 0.8s ease-out forwards; }
+        .fade-in-bottom { animation: fadeInFromBottom 0.8s ease-out forwards; }
+        
+        /* custom glow for the main elements and button for a dynamic look. */
+        .glow-shadow {
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.4), 0 0 30px rgba(255, 0, 0, 0.2);
+        }
+        
+        /* base styles for dark mode. */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0D0D0D; 
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // dark/reddish theme colors.
+                        primarybg: '#0D0D0D', 
+                        cardbg: '#181818',
+                        accentred: '#FF4500', // bright orange-red.
+                        ytred: '#FF0000', // classic red.
+                        lighttext: '#FAFAFA', // pure white text.
+                        faintborder: '#333333',
+                    },
+                    // used for the big button's hover effect.
+                    boxShadow: {
+                        '3xl': '0 10px 30px rgba(255, 0, 0, 0.5)',
+                    }
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-primarybg text-lighttext font-sans overflow-x-hidden min-h-screen">
+    
+    <!-- header. -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-primarybg/90 border-b border-accentred/50 shadow-2xl shadow-ytred/10">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <h1 class="text-3xl font-extrabold bg-gradient-to-r from-accentred to-ytred bg-clip-text text-transparent hover:scale-105 transition-transform duration-300">imcrabMC</h1>
+            <!-- small button for quick navigation to channel page. -->
+            <a href="https://www.youtube.com/channel/UCsxJAYVQoPUjw9IoyGgL4fQ" target="_blank" 
+                class="bg-cardbg text-ytred px-4 py-1.5 rounded-full font-semibold border border-ytred hover:bg-ytred hover:text-white transition-all duration-300">
+                channel
+            </a>
+        </div>
+    </header>
+
+    <!-- main content. -->
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-16">
+        
+        <!-- channel details section - fade-in from top. -->
+        <section id="channel-info" class="text-center space-y-8 fade-in-top" style="animation-delay: 0.1s;">
+            <div class="flex flex-col items-center gap-4">
+                <!-- channel icon with ring and glow. -->
+                <img id="channel-icon" src="" alt="channel icon." class="w-36 h-36 rounded-full shadow-2xl glow-shadow ring-4 ring-accentred/80 transition-transform duration-500 hover:scale-105">
+                
+                <!-- channel title - larger and brighter. -->
+                <h2 id="channel-title" class="text-5xl font-extrabold text-lighttext bg-gradient-to-r from-accentred to-ytred bg-clip-text text-transparent"></h2>
+                
+                <!-- channel description. -->
+                <p id="channel-description" class="text-gray-400 max-w-2xl leading-relaxed text-lg mb-8"></p>
+            </div>
+            
+            <!-- huge subscribe button. -->
+            <a href="https://www.youtube.com/channel/UCsxJAYVQoPUjw9IoyGgL4fQ?sub_confirmation=1" target="_blank" 
+                class="inline-block py-4 px-16 text-3xl font-black rounded-3xl tracking-wider 
+                       bg-ytred text-white shadow-2xl shadow-ytred/50 glow-shadow 
+                       transition-all duration-300 transform hover:scale-105 hover:shadow-3xl active:scale-95">
+                sub?
+            </a>
+
+            <!-- stats cards - larger text, more prominent shadows. -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 text-center">
+                <div class="bg-cardbg p-6 rounded-2xl shadow-xl glow-shadow border border-faintborder transition-all duration-300 hover:shadow-2xl hover:shadow-ytred/20 hover:-translate-y-1">
+                    <p class="text-gray-400 text-lg">subscribers.</p>
+                    <h3 id="sub-count" class="text-4xl font-extrabold text-ytred mt-1">--</h3>
+                </div>
+                <div class="bg-cardbg p-6 rounded-2xl shadow-xl glow-shadow border border-faintborder transition-all duration-300 hover:shadow-2xl hover:shadow-ytred/20 hover:-translate-y-1">
+                    <p class="text-gray-400 text-lg">total views.</p>
+                    <h3 id="view-count" class="text-4xl font-extrabold text-ytred mt-1">--</h3>
+                </div>
+                <div class="bg-cardbg p-6 rounded-2xl shadow-xl glow-shadow border border-faintborder transition-all duration-300 hover:shadow-2xl hover:shadow-ytred/20 hover:-translate-y-1">
+                    <p class="text-gray-400 text-lg">videos.</p>
+                    <h3 id="video-count" class="text-4xl font-extrabold text-ytred mt-1">--</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- latest videos - fade-in from bottom. -->
+        <section id="videos" class="fade-in-bottom" style="animation-delay: 0.3s;">
+            <h2 class="text-3xl font-bold text-center mb-10 bg-gradient-to-r from-accentred to-ytred bg-clip-text text-transparent">latest uploads.</h2>
+            <div id="video-grid" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- video items will be inserted here. -->
+            </div>
+        </section>
+
+        <p class="text-center text-gray-500 text-sm py-4 border-t border-faintborder fade-in-bottom" style="animation-delay: 0.5s;">data powered by youtube data api v3.</p>
+    </main>
+
+    <script>
+        const API_KEY = "AIzaSyBVXhoiLJAZwL_kCB4b0SzPJFAyDExdvBk";
+        const CHANNEL_ID = "UCsxJAYVQoPUjw9IoyGgL4fQ";
+
+        function formatNumber(num) {
+            return Number(num).toLocaleString();
+        }
+
+        // --- youtube data logic. ---
+
+        async function loadChannelData() {
+            const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails,statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                const channel = data.items[0];
+
+                document.getElementById("channel-icon").src = channel.snippet.thumbnails.high.url;
+                // channel title is left as is so it pulls the correct case from youtube.
+                document.getElementById("channel-title").textContent = channel.snippet.title;
+                document.getElementById("channel-description").textContent = channel.snippet.description || "no description available. check out the channel!";
+                document.getElementById("sub-count").textContent = formatNumber(channel.statistics.subscriberCount);
+                document.getElementById("view-count").textContent = formatNumber(channel.statistics.viewCount);
+                document.getElementById("video-count").textContent = formatNumber(channel.statistics.videoCount);
+
+                const uploadsId = channel.contentDetails.relatedPlaylists.uploads;
+                loadVideos(uploadsId);
+            } catch (err) {
+                console.error("channel data error:", err);
+            }
+        }
+
+        async function loadVideos(uploadsId) {
+            const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsId}&maxResults=6&key=${API_KEY}`;
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                const grid = document.getElementById("video-grid");
+                let videoHTML = '';
+                
+                data.items.forEach((item, index) => {
+                    const vid = item.snippet.resourceId.videoId;
+                    // using item.snippet.title for video title, so it preserves the original case.
+                    const title = item.snippet.title; 
+                    const date = new Date(item.snippet.publishedAt).toLocaleDateString();
+                    
+                    // staggered animation delay for video cards.
+                    videoHTML += `
+                        <div class="bg-cardbg rounded-xl overflow-hidden shadow-xl border border-faintborder transition-all duration-300 hover:shadow-2xl hover:shadow-ytred/20 hover:-translate-y-1 fade-in-bottom" style="animation-delay: ${0.4 + (index * 0.1)}s;">
+                            <iframe width="100%" height="215" src="https://www.youtube.com/embed/${vid}" title="${title}"
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen class="w-full"></iframe>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-lighttext line-clamp-2">${title}</h3>
+                                <p class="text-gray-400 text-sm mt-1">${date}.</p>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                grid.innerHTML = videoHTML;
+            } catch (err) {
+                console.error("video loading error:", err);
+            }
+        }
+
+        // start loading channel data when the script runs.
+        loadChannelData();
+    </script>
+</body>
+</html>
